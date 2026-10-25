@@ -1,0 +1,20 @@
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Configuración de editores y entornos de desarrollo (IDE)
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Entornos virtuales o servidores locales (por si usan VS Code Live Server)
+.live-server/
+
+# Archivos de registro y temporales
+*.log
+*.tmp
+
+# Credenciales y variables de entorno (fundamental para cuando agreguen PHP/DB)
+.env
