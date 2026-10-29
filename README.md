@@ -10,7 +10,7 @@
 
 ## 📋 Descripción del Proyecto
 
-Este sistema fue desarrollado por **Nodebridge** con el propósito de ofrecer a la comunidad un punto de acceso rápido, directo y universal a información médica de interés público.
+Este sistema fue desarrollado por **Floware** con el propósito de ofrecer a la comunidad un punto de acceso rápido, directo y universal a información médica de interés público.
 
 Diseñado para ser accedido mediante **códigos QR situados en el Hospital de Clínicas** o a través del navegador web, el portal permite a cualquier paciente o visitante consultar material informativo sobre prevención de enfermedades, recomendaciones de cuidado general y guías médicas sin necesidad de registro previa ni inicio de sesión.
 

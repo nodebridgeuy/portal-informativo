@@ -29,156 +29,84 @@
       <section class="form__container">
         <div class="form__header column">
           <p>Su opinión importa</p>
-          <h4>Encuesta de satisfacción</h4>
+          <h4>Encuestas de satisfacción</h4>
         </div>
 
+        <p
+          class="form__estado"
+          id="estado-encuestas"
+          role="status"
+          aria-live="polite"
+        >
+          Cargando encuestas...
+        </p>
+
         <form
+          id="form-encuesta"
           method="POST"
           class="form column"
           novalidate
+          hidden
         >
           <div class="form__field column">
-            <h5 class="form__qn">
-              ¿Cómo calificaría la atención recibida hoy?
-            </h5>
-            <p class="form__help">1 es muy insatisfecho y 5 muy satisfecho</p>
-            <section class="form__options-container">
-              <div class="form__options">
-                <label class="form__option">
-                  <input
-                    type="radio"
-                    name="clasificacion"
-                    value="pesima"
-                    required
-                    aria-describedby="error-clasificacion"
-                  />
-                  1
-                </label>
-                <label class="form__option">
-                  <input
-                    type="radio"
-                    name="clasificacion"
-                    value="mala"
-                    required
-                    aria-describedby="error-clasificacion"
-                  />
-                  2
-                </label>
-                <label class="form__option">
-                  <input
-                    type="radio"
-                    name="clasificacion"
-                    value="regular"
-                    required
-                    aria-describedby="error-clasificacion"
-                  />
-                  3
-                </label>
-                <label class="form__option">
-                  <input
-                    type="radio"
-                    name="clasificacion"
-                    value="buena"
-                    required
-                    aria-describedby="error-clasificacion"
-                  />
-                  4
-                </label>
-                <label class="form__option">
-                  <input
-                    type="radio"
-                    name="clasificacion"
-                    value="excelente"
-                    required
-                    aria-describedby="error-clasificacion"
-                  />
-                  5
-                </label>
-              </div>
-              <section class="form__options-help">
-                <p>Muy insatisfecho</p>
-                <p>Muy satisfecho</p>
-              </section>
-            </section>
-            <p
-              class="form__error-msg"
-              id="error-clasificacion"
-              aria-live="polite"
-            ></p>
-          </div>
-          <div class="form__field column">
-            <label class="form__qn" for="place"
-              >¿Dónde recibió la atención?</label
+            <label class="form__qn" for="sector"
+              >¿Sobre qué sector quiere opinar?</label
             >
             <p class="form__help">
-              Seleccione el lugar exacto donde fue atendido.
+              Elija el sector o servicio que desea evaluar.
             </p>
             <select
-              name="place"
-              id="place"
+              name="sector"
+              id="sector"
               required
-              aria-describedby="error-place"
+              aria-describedby="error-sector"
             >
-              <option value="" disabled selected>Seleccione un lugar...</option>
-              <option value="lab1">LAB 1</option>
-              <option value="lab2">LAB 2</option>
-              <option value="lab3">LAB 3</option>
-              <option value="lab4">LAB 4</option>
-              <option value="lab5">LAB 5</option>
-              <option value="lab6">LAB 6</option>
+              <option value="" disabled selected>Seleccione un sector...</option>
             </select>
-            <p class="form__error-msg" id="error-place" aria-live="polite"></p>
+            <p class="form__error-msg" id="error-sector" aria-live="polite"></p>
           </div>
-          <div class="form__field column">
-            <label class="form__qn" for="profesional">¿Quién lo atendió?</label>
-            <p class="form__help">Médicos disponibles.</p>
+
+          <div class="form__field column" id="campo-encuesta" hidden>
+            <label class="form__qn" for="encuesta"
+              >¿Qué encuesta desea responder?</label
+            >
             <select
-              name="profesional"
-              id="profesional"
+              name="encuesta"
+              id="encuesta"
               required
-              aria-describedby="error-profesional"
+              aria-describedby="error-encuesta"
             >
               <option value="" disabled selected>
-                Seleccione un profesional...
+                Seleccione una encuesta...
               </option>
-              <option value="profesional1">Profesional 1</option>
-              <option value="profesional2">Profesional 2</option>
-              <option value="profesional3">Profesional 3</option>
-              <option value="profesional4">Profesional 4</option>
-              <option value="profesional5">Profesional 5</option>
-              <option value="profesional6">Profesional 6</option>
             </select>
             <p
               class="form__error-msg"
-              id="error-profesional"
+              id="error-encuesta"
               aria-live="polite"
             ></p>
           </div>
-          <div class="form__field column">
-            <label class="form__qn" for="comentario">
-              ¿Algo que le gustaría que supiéramos?
-            </label>
-            <p class="form__help">
-              Opcional - sus comentarios nos ayudan a mejorar.
-            </p>
-            <textarea
-              name="comentario"
-              id="comentario"
-              placeholder="Escriba aquí su comentario..."
-              aria-describedby="error-comentario"
-            ></textarea>
-            <p
-              class="form__error-msg"
-              id="error-comentario"
-              aria-live="polite"
-            ></p>
+
+          <div class="column" id="intro-encuesta" hidden>
+            <h5 class="form__survey-title" id="titulo-encuesta"></h5>
+            <p class="form__help" id="descripcion-encuesta"></p>
           </div>
-          <div style="position:absolute;left:-9999px" aria-hidden="true">
-            <label>No completar este campo
-              <input type="text" name="sitio_web" tabindex="-1" autocomplete="off" />
+
+          <div class="column form__questions" id="preguntas"></div>
+
+          <div style="position: absolute; left: -9999px" aria-hidden="true">
+            <label
+              >No completar este campo
+              <input
+                type="text"
+                name="sitio_web"
+                tabindex="-1"
+                autocomplete="off"
+              />
             </label>
           </div>
-          <div class="form__field row">
+
+          <div class="form__field row" id="pie-formulario" hidden>
             <p>Sus respuestas son anónimas.</p>
             <button type="submit">Enviar encuesta</button>
           </div>
@@ -248,6 +176,6 @@
     </footer>
 
     <script src="./js/config.js"></script>
-    <script src="./js/validaciones.js" defer></script>
+    <script src="./js/encuesta.js" defer></script>
   </body>
 </html>

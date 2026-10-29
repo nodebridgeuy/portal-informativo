@@ -26,11 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const categoria = tituloCategoria.textContent.trim()
 
-  // Lista completa que llegó del backend; la búsqueda filtra sobre esta copia.
-  let todosLosDocumentos = []
-
-  const formularioBusqueda = document.querySelector('.search')
-  const campoBusqueda = document.querySelector('.search__input')
+  let todos = []
 
   contenedor.innerHTML = '<p class="file__mensaje">Cargando documentos...</p>'
 
@@ -45,14 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return
       }
 
-      if (datos.documentos.length === 0) {
+      todos = datos.documentos
+      if (todos.length === 0) {
         contenedor.innerHTML =
           '<p class="file__mensaje">Todavía no hay documentos en esta categoría.</p>'
         return
       }
 
-      todosLosDocumentos = datos.documentos
-      mostrarDocumentos(todosLosDocumentos)
+      mostrar(todos)
+      activarBuscador()
     })
     .catch((error) => {
       console.error('Error al cargar documentos:', error)
@@ -60,41 +57,54 @@ document.addEventListener('DOMContentLoaded', () => {
         '<p class="file__mensaje">Hubo un problema al cargar los documentos.</p>'
     })
 
-  // Quita tildes y mayúsculas para que "guia" encuentre "Guía general...".
   function normalizar(texto) {
     return texto
-      .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim()
   }
 
-  function mostrarDocumentos(lista) {
+  function mostrar(lista, busqueda = '') {
     contenedor.innerHTML = ''
+    if (lista.length === 0) {
+      const mensaje = document.createElement('p')
+      mensaje.className = 'file__mensaje'
+      mensaje.textContent = `No se encontraron documentos para "${busqueda}".`
+      contenedor.appendChild(mensaje)
+      return
+    }
     lista.forEach((documento) => {
       contenedor.appendChild(crearFilaDocumento(documento))
     })
   }
 
-  function filtrarDocumentos() {
-    const termino = normalizar(campoBusqueda.value.trim())
-    const coincidencias = todosLosDocumentos.filter((doc) =>
-      normalizar(doc.titulo).includes(termino),
-    )
-    if (coincidencias.length === 0) {
-      contenedor.innerHTML =
-        '<p class="file__mensaje">No se encontraron documentos con esa búsqueda.</p>'
+  function activarBuscador() {
+    const formulario = document.querySelector('.search')
+    const campo = document.querySelector('.search__input')
+    if (!formulario || !campo) {
       return
     }
-    mostrarDocumentos(coincidencias)
-  }
 
-  if (formularioBusqueda && campoBusqueda) {
-    // Filtra mientras se escribe; el submit (Enter o lupa) no recarga la página.
-    campoBusqueda.addEventListener('input', filtrarDocumentos)
-    formularioBusqueda.addEventListener('submit', (evento) => {
+    const filtrar = () => {
+      const consulta = normalizar(campo.value)
+      if (consulta === '') {
+        mostrar(todos)
+        return
+      }
+      const palabras = consulta.split(/\s+/)
+      const coincidencias = todos.filter((documento) => {
+        const titulo = normalizar(documento.titulo)
+        return palabras.every((palabra) => titulo.includes(palabra))
+      })
+      mostrar(coincidencias, campo.value.trim())
+    }
+
+    formulario.addEventListener('submit', (evento) => {
       evento.preventDefault()
-      filtrarDocumentos()
+      filtrar()
     })
+    campo.addEventListener('input', filtrar)
   }
 
   function crearFilaDocumento(documento) {

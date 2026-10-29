@@ -384,3 +384,51 @@ body {
     margin-bottom: 0;
   }
 }
+
+/* Encuestas dinámicas (sector, encuesta y preguntas que arma el administrador) */
+[hidden] {
+  display: none !important;
+}
+
+.form__estado {
+  padding: 20px;
+  color: #555555;
+}
+
+.form__survey-title {
+  font-size: 1.25em;
+  color: #1763a1;
+  font-weight: 800;
+}
+
+.form__questions {
+  gap: 40px;
+}
+
+.form__choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form__choice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.form__choice:has(input:checked) {
+  border-color: #1763a1;
+  background-color: #eef5fb;
+}
+
+.form__choice input {
+  width: 18px;
+  height: 18px;
+  accent-color: #1763a1;
+}
